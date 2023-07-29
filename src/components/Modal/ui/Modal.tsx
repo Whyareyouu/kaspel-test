@@ -1,11 +1,16 @@
-import React from "react";
+import { FC, ReactNode } from "react";
 import { Modal as ModalWindow } from "antd";
 import { Portal } from "../../Portal";
+import { ModalFuncProps } from "antd/es/modal/interface";
 
-export const Modal = () => {
+type ModalProps = {
+  children: ReactNode;
+} & ModalFuncProps;
+
+export const Modal: FC<ModalProps> = ({ children, ...props }) => {
   return (
     <Portal>
-      <ModalWindow></ModalWindow>
+      <ModalWindow {...props}>{children}</ModalWindow>
     </Portal>
   );
 };
