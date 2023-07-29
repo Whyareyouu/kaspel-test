@@ -34,7 +34,7 @@ export const TablePage = () => {
   };
 
   const handleAddUser = (user: Omit<User, "id">) => {
-    const newUser = { ...user, id: (users.length + 1).toString() };
+    const newUser = { ...user, key: (users.length + 1).toString() };
     dispatch({ type: ActionPoints.ADDUSER, payload: newUser });
   };
 

@@ -22,7 +22,6 @@ export const TableComponent: FC<TableComponentProps> = ({
     filters,
     sorter
   ) => {
-    console.log("Various parameters", pagination, filters, sorter);
     setSortedInfo(sorter as SorterResult<User>);
   };
 
@@ -83,32 +82,7 @@ export const TableComponent: FC<TableComponentProps> = ({
       columns={columns}
       pagination={false}
       onChange={handleChange}
+      rowKey="key"
     />
   );
 };
-
-// <Column title="Name" dataIndex="name" key="name" />
-// <Column title="Date" dataIndex="date" key="date" />
-// <Column title="Value" dataIndex="value" key="value" />
-// <Column
-//     title="Actions"
-//     key="actions"
-//     render={(record) => (
-//         <span>
-//             <Button
-//                 icon={<EditOutlined />}
-//                 style={{ marginRight: 8 }}
-//                 onClick={() => showModal(record)}
-//             >
-//               Edit
-//             </Button>
-//             <Button
-//                 icon={<DeleteOutlined />}
-//                 danger
-//                 onClick={() => handleDeleteUser(record)}
-//             >
-//               Delete
-//             </Button>
-//           </span>
-//     )}
-// />
