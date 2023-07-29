@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  key: string;
   name: string;
   date: string | Date; // Исправить на date
   value: number | null;

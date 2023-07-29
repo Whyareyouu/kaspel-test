@@ -16,13 +16,13 @@ type TableProviderProps = {
 
 const initialState: User[] = [
   {
-    id: "1",
+    key: "1",
     name: "John Doe",
     date: "2023-07-25",
     value: 42,
   },
   {
-    id: "2",
+    key: "2",
     name: "Jane Smith",
     date: "2023-07-25",
     value: 78,

@@ -11,13 +11,13 @@ export const Form = ({ form, initialValues }) => {
       >
         <Input />
       </AntdForm.Item>
-      <AntdForm.Item
-        label="Date"
-        name="date"
-        rules={[{ required: true, message: "Выберите дату!" }]}
-      >
-        <DatePicker />
-      </AntdForm.Item>
+      {/*<AntdForm.Item*/}
+      {/*  label="Date"*/}
+      {/*  name="date"*/}
+      {/*  rules={[{ required: true, message: "Выберите дату!" }]}*/}
+      {/*>*/}
+      {/*  <DatePicker />*/}
+      {/*</AntdForm.Item>*/}
       <AntdForm.Item
         label="Value"
         name="value"

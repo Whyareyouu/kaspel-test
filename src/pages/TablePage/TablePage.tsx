@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Form, TableComponent } from "../../components";
-import { Button, Modal } from "antd";
+import React, { ChangeEvent, useState } from "react";
+import { Form, TableComponent, Modal, Search } from "../../components";
+import { Button } from "antd";
 import { User } from "../../components/Table";
 import { useForm } from "antd/es/form/Form";
 import { useTableState } from "../../hooks/useTableState";
@@ -13,48 +13,70 @@ export const TablePage = () => {
 
   const [modalData, setModalData] = useState<User | null>(null);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
+  const [searchText, setSearchText] = useState<string>("");
   const [modalForm] = useForm();
   const showModal = (user: User) => {
     setModalData(user);
     setModalVisible(true);
   };
-  const handleDeleteUser = (record: User) => {};
-  const handleEditUser = (userData: User) => {};
 
-  const handleAddUser = (user: User) => {
-    dispatch({ type: ActionPoints.ADDUSER, payload: user });
+  const handleDeleteUser = (user: User) => {
+    dispatch({ type: ActionPoints.DELETEUSER, payload: user.key });
   };
+  const handleEditUser = (user: User) => {
+    dispatch({
+      type: ActionPoints.CHANGEUSER,
+      payload: { user, id: modalData!.key }, //maybe fix !
+    });
+    setModalVisible(false);
+  };
+
+  const handleAddUser = (user: Omit<User, "id">) => {
+    const newUser = { ...user, id: (users.length + 1).toString() };
+    dispatch({ type: ActionPoints.ADDUSER, payload: newUser });
+  };
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
+  const filteredData = users.filter((user) =>
+    Object.values(user).some((value) => {
+      return value.toString().toLowerCase().includes(searchText.toLowerCase());
+    })
+  );
+
   return (
     <>
+      <Search value={searchText} onChange={handleSearch} />
       <Button
         type="primary"
         style={{ marginBottom: 16 }}
         onClick={() =>
+          //@ts-ignore fix
           showModal({
             name: "",
             date: "",
             value: null,
-            id: (users.length + 1).toString(),
           })
         }
       >
         Add
       </Button>
       <TableComponent
-        users={users}
+        users={filteredData}
         handleDeleteUser={handleDeleteUser}
         showModal={showModal}
       />
       <Modal
-        title="Edit user"
+        title={modalData?.key ? "Edit Data" : "Add Data"}
         open={isModalVisible}
         okText={"confirm"}
         onCancel={() => setModalVisible(false)}
         onOk={() => {
           modalForm.validateFields().then((values) => {
             modalForm.resetFields();
-            // handleEditUser(values);
-            handleAddUser(values);
+            modalData?.key ? handleEditUser(values) : handleAddUser(values);
           });
         }}
       >
