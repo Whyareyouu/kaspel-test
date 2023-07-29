@@ -18,7 +18,7 @@ const initialState: User[] = [
   {
     key: "1",
     name: "John Doe",
-    date: "2023-07-25",
+    date: "2023-05-23",
     value: 42,
   },
   {

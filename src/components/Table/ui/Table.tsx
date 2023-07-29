@@ -1,9 +1,9 @@
-import React, { FC } from "react";
-import { Button, Table } from "antd";
+import React, { FC, useState } from "react";
+import { Button, Table, TableProps } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { User } from "../types/Table";
-
-const { Column } = Table;
+import { SorterResult } from "antd/es/table/interface";
+import { ColumnsType } from "antd/lib/table";
 
 interface TableComponentProps {
   users: User[];
@@ -16,15 +16,46 @@ export const TableComponent: FC<TableComponentProps> = ({
   showModal,
   handleDeleteUser,
 }) => {
-  return (
-    <Table dataSource={users} pagination={false}>
-      <Column title="Name" dataIndex="name" key="name" />
-      <Column title="Date" dataIndex="date" key="date" />
-      <Column title="Value" dataIndex="value" key="value" />
-      <Column
-        title="Actions"
-        key="actions"
-        render={(record) => (
+  const [sortedInfo, setSortedInfo] = useState<SorterResult<User>>({});
+  const handleChange: TableProps<User>["onChange"] = (
+    pagination,
+    filters,
+    sorter
+  ) => {
+    console.log("Various parameters", pagination, filters, sorter);
+    setSortedInfo(sorter as SorterResult<User>);
+  };
+
+  const columns: ColumnsType<User> = [
+    {
+      key: "name",
+      title: "Name",
+      dataIndex: "name",
+      sorter: (a, b) => a.name.length - b.name.length,
+      sortOrder: sortedInfo.columnKey === "name" ? sortedInfo.order : null,
+      ellipsis: true,
+    },
+    {
+      key: "date",
+      title: "Date",
+      dataIndex: "date",
+      sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+      sortOrder: sortedInfo.columnKey === "date" ? sortedInfo.order : null,
+      ellipsis: true,
+    },
+    {
+      key: "value",
+      title: "Value",
+      dataIndex: "value",
+      sorter: (a, b) => a.value - b.value,
+      sortOrder: sortedInfo.columnKey === "value" ? sortedInfo.order : null,
+      ellipsis: true,
+    },
+    {
+      key: "actions",
+      title: "Actions",
+      render: (record: User) => {
+        return (
           <span>
             <Button
               icon={<EditOutlined />}
@@ -41,8 +72,43 @@ export const TableComponent: FC<TableComponentProps> = ({
               Delete
             </Button>
           </span>
-        )}
-      />
-    </Table>
+        );
+      },
+    },
+  ];
+
+  return (
+    <Table
+      dataSource={users}
+      columns={columns}
+      pagination={false}
+      onChange={handleChange}
+    />
   );
 };
+
+// <Column title="Name" dataIndex="name" key="name" />
+// <Column title="Date" dataIndex="date" key="date" />
+// <Column title="Value" dataIndex="value" key="value" />
+// <Column
+//     title="Actions"
+//     key="actions"
+//     render={(record) => (
+//         <span>
+//             <Button
+//                 icon={<EditOutlined />}
+//                 style={{ marginRight: 8 }}
+//                 onClick={() => showModal(record)}
+//             >
+//               Edit
+//             </Button>
+//             <Button
+//                 icon={<DeleteOutlined />}
+//                 danger
+//                 onClick={() => handleDeleteUser(record)}
+//             >
+//               Delete
+//             </Button>
+//           </span>
+//     )}
+// />

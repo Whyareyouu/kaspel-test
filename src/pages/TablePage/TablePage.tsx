@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { Form, TableComponent, Modal, Search } from "../../components";
+import { Form, Modal, Search, TableComponent } from "../../components";
 import { Button } from "antd";
 import { User } from "../../components/Table";
 import { useForm } from "antd/es/form/Form";
@@ -11,10 +11,12 @@ export const TablePage = () => {
   const users = useTableState();
   const dispatch = useTableDispatch();
 
+  const [searchText, setSearchText] = useState<string>("");
+
   const [modalData, setModalData] = useState<User | null>(null);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
-  const [searchText, setSearchText] = useState<string>("");
   const [modalForm] = useForm();
+
   const showModal = (user: User) => {
     setModalData(user);
     setModalVisible(true);
@@ -57,7 +59,7 @@ export const TablePage = () => {
           showModal({
             name: "",
             date: "",
-            value: null,
+            value: 0,
           })
         }
       >
