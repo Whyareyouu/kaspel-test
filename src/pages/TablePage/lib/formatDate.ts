@@ -1,4 +1,4 @@
-export function formatDateToISO(dateString: Date): string {
+export function formatDateToISO(dateString: Date | string): string {
   const dateObject = new Date(dateString);
   const year = dateObject.getFullYear().toString().padStart(4, "0");
   const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
