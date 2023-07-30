@@ -1,9 +1,20 @@
-import { Form as AntdForm, DatePicker, Input } from "antd";
-import React from "react";
-//@ts-ignore
-export const Form = ({ form, initialValues }) => {
+import { Form as AntdForm, FormInstance, Input } from "antd";
+import React, { FC, useEffect } from "react";
+import { User } from "../../Table";
+
+interface FormProps {
+  form: FormInstance<any>;
+  initialValues: User | null;
+}
+
+export const Form: FC<FormProps> = ({ form, initialValues }) => {
+  useEffect(() => {
+    form.setFieldsValue({
+      ...initialValues,
+    });
+  }, [initialValues, form]);
   return (
-    <AntdForm form={form} initialValues={initialValues}>
+    <AntdForm form={form} initialValues={initialValues || {}}>
       <AntdForm.Item
         label="Name"
         name="name"

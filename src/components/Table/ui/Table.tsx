@@ -82,7 +82,7 @@ export const TableComponent: FC<TableComponentProps> = ({
       columns={columns}
       pagination={false}
       onChange={handleChange}
-      rowKey="key"
+      rowKey={(record) => record.key}
     />
   );
 };

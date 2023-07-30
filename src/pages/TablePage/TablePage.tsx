@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { Form, Modal, Search, TableComponent } from "../../components";
+import { Search, TableComponent, Modal, Form } from "../../components";
 import { Button } from "antd";
 import { User } from "../../components/Table";
 import { useForm } from "antd/es/form/Form";
@@ -15,11 +15,16 @@ export const TablePage = () => {
 
   const [modalData, setModalData] = useState<User | null>(null);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
-  const [modalForm] = useForm();
+  const [modalForm] = useForm<User>();
 
   const showModal = (user: User) => {
     setModalData(user);
     setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setModalData(null);
   };
 
   const handleDeleteUser = (user: User) => {
@@ -74,7 +79,7 @@ export const TablePage = () => {
         title={modalData?.key ? "Edit Data" : "Add Data"}
         open={isModalVisible}
         okText={"confirm"}
-        onCancel={() => setModalVisible(false)}
+        onCancel={() => closeModal()}
         onOk={() => {
           modalForm.validateFields().then((values) => {
             modalForm.resetFields();
