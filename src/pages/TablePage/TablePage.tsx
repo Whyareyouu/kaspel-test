@@ -85,7 +85,7 @@ export const TablePage = () => {
           showModal({
             name: "",
             date: "",
-            value: null,
+            value: 0,
           })
         }
       >

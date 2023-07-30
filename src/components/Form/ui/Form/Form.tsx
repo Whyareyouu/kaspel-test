@@ -1,7 +1,7 @@
-import { Input } from "antd";
 import React, { ChangeEvent, FC } from "react";
-import { User } from "../../Table";
+import { User } from "../../../Table";
 import "./Form.styles.css";
+import { Input } from "../Input/Input";
 interface FormProps {
   initialValues: User | null;
   setEditingUser: (e: any) => void; // maybe fix any
@@ -36,34 +36,28 @@ export const Form: FC<FormProps> = ({
 
   return (
     <div className="form">
-      <div>
-        <Input
-          name="name"
-          value={initialValues?.name}
-          onChange={handleNameChange}
-          placeholder="Введите имя"
-        />
-        <span>{errors?.name}</span>
-      </div>
-      <div>
-        <Input
-          name="date"
-          value={initialValues?.date as string}
-          onChange={handleDateChange}
-          type={"date"}
-          placeholder="yyyy/mm/dd"
-        />
-        <span>{errors?.date}</span>
-      </div>
-      <div>
-        <Input
-          name="value"
-          value={initialValues?.value}
-          onChange={handleValueChange}
-          placeholder="Введите числовое значение"
-        />
-        <span>{errors?.value}</span>
-      </div>
+      <Input
+        name="name"
+        value={initialValues?.name}
+        onChange={handleNameChange}
+        placeholder="Введите имя"
+        error={errors?.name}
+      />
+      <Input
+        name="date"
+        value={initialValues?.date as string}
+        onChange={handleDateChange}
+        type={"date"}
+        placeholder="yyyy/mm/dd"
+        error={errors?.date}
+      />
+      <Input
+        name="value"
+        value={initialValues?.value}
+        onChange={handleValueChange}
+        placeholder="Введите числовое значение"
+        error={errors?.value}
+      />
     </div>
   );
 };
