@@ -1,6 +1,6 @@
 import { User } from "../../../components/Table";
 
-export function validateUser(user: Record<keyof User, string>) {
+export function validateUser(user: User) {
   const errors: Record<string, string> = {};
 
   // Проверка поля 'name'
@@ -18,7 +18,7 @@ export function validateUser(user: Record<keyof User, string>) {
     user?.value === undefined ||
     user?.value === null ||
     typeof +user?.value !== "number" ||
-    user?.value.length === 0
+    user?.value.toString().length === 0
   ) {
     errors.value = 'Поле "value" должно быть числовым значением';
   }

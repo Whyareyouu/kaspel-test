@@ -12,10 +12,12 @@ export const Input: FC<InputProps> = ({
   name,
   value,
   error,
+  type,
 }) => {
   return (
     <Space direction="vertical">
       <AntdInput
+        type={type}
         onChange={onChange}
         value={value}
         placeholder={placeholder}

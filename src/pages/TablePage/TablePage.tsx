@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Search, TableComponent, Modal, Form } from "../../components";
 import { Button } from "antd";
 import { User } from "../../components/Table";
@@ -17,9 +23,9 @@ export const TablePage = () => {
   const [modalData, setModalData] = useState<User | null>(null);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
-  //test
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [errors, setErrors] = useState<Record<keyof User, string> | null>(null);
+
   const showModal = (user: User) => {
     setModalData(user);
     setModalVisible(true);
@@ -32,33 +38,42 @@ export const TablePage = () => {
     setEditingUser(null);
   };
 
-  const handleDeleteUser = (user: User) => {
-    dispatch({ type: ActionPoints.DELETEUSER, payload: user.key });
-  };
-  const handleEditUser = (user: User) => {
-    dispatch({
-      type: ActionPoints.CHANGEUSER,
-      payload: { user, id: modalData!.key },
-    });
-    closeModal();
-  };
+  const handleDeleteUser = useCallback(
+    (user: User) => {
+      dispatch({ type: ActionPoints.DELETEUSER, payload: user.key });
+    },
+    [dispatch]
+  );
 
-  const handleAddUser = (user: Omit<User, "id">) => {
-    const newUser = {
-      ...user,
-      key: (users.length + 1).toString(),
-      date: formatDateToISO(user.date),
-    };
-    dispatch({ type: ActionPoints.ADDUSER, payload: newUser });
-    closeModal();
-  };
+  const handleEditUser = useCallback(
+    (user: User) => {
+      dispatch({
+        type: ActionPoints.CHANGEUSER,
+        payload: { user, id: modalData!.key },
+      });
+      closeModal();
+    },
+    [dispatch, modalData]
+  );
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleAddUser = useCallback(
+    (user: Omit<User, "id">) => {
+      const newUser = {
+        ...user,
+        key: (users.length + 1).toString(),
+        date: formatDateToISO(user.date),
+      };
+      dispatch({ type: ActionPoints.ADDUSER, payload: newUser });
+      closeModal();
+    },
+    [dispatch, users]
+  );
+
+  const handleSearch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
-  };
+  }, []);
 
   useEffect(() => {
-    //@ts-ignore
     if (editingUser) setErrors(validateUser(editingUser));
   }, [editingUser]);
 
@@ -68,10 +83,17 @@ export const TablePage = () => {
     }
   }, [errors]);
 
-  const filteredData = users.filter((user) =>
-    Object.values(user).some((value) => {
-      return value.toString().toLowerCase().includes(searchText.toLowerCase());
-    })
+  const filteredData = useMemo(
+    () =>
+      users.filter((user) =>
+        Object.values(user).some((value) => {
+          return value
+            .toString()
+            .toLowerCase()
+            .includes(searchText.toLowerCase());
+        })
+      ),
+    [searchText, users]
   );
 
   return (
@@ -81,12 +103,11 @@ export const TablePage = () => {
         type="primary"
         style={{ marginBottom: 16 }}
         onClick={() =>
-          //@ts-ignore fix
           showModal({
             name: "",
             date: "",
             value: 0,
-          })
+          } as User)
         }
       >
         Add
@@ -101,12 +122,13 @@ export const TablePage = () => {
         open={isModalVisible}
         okText={"confirm"}
         onCancel={() => closeModal()}
-        onOk={
-          () =>
+        onOk={() => {
+          if (editingUser) {
             modalData?.key
-              ? handleEditUser(editingUser!) // fix
-              : handleAddUser(editingUser!) // fix
-        }
+              ? handleEditUser(editingUser)
+              : handleAddUser(editingUser);
+          }
+        }}
         okButtonProps={{
           disabled: checkToValidFields(),
         }}

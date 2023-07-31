@@ -4,10 +4,9 @@ import "./Form.styles.css";
 import { Input } from "../Input/Input";
 interface FormProps {
   initialValues: User | null;
-  setEditingUser: (e: any) => void; // maybe fix any
+  setEditingUser: (prev: any) => void;
   errors?: Record<keyof User, string> | null;
 }
-
 export const Form: FC<FormProps> = ({
   initialValues,
   setEditingUser,
@@ -57,6 +56,7 @@ export const Form: FC<FormProps> = ({
         onChange={handleValueChange}
         placeholder="Введите числовое значение"
         error={errors?.value}
+        type={"number"}
       />
     </div>
   );
