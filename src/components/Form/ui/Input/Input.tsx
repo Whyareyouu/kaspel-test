@@ -13,6 +13,8 @@ export const Input: FC<InputProps> = ({
   value,
   error,
   type,
+  min,
+  max,
 }) => {
   return (
     <Space direction="vertical">
@@ -22,6 +24,8 @@ export const Input: FC<InputProps> = ({
         value={value}
         placeholder={placeholder}
         name={name}
+        min={min}
+        max={max}
       />
       <Typography.Text type="danger">{error}</Typography.Text>
     </Space>

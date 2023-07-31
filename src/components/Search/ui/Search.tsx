@@ -1,16 +1,15 @@
 import { Input } from "antd";
-import { FC, InputHTMLAttributes } from "react";
+import { FC, InputHTMLAttributes, memo } from "react";
 
-export const Search: FC<InputHTMLAttributes<HTMLInputElement>> = ({
-  value,
-  onChange,
-}) => {
-  return (
-    <Input
-      placeholder="Search..."
-      style={{ marginBottom: 16, width: 200 }}
-      value={value}
-      onChange={onChange}
-    />
-  );
-};
+export const Search: FC<InputHTMLAttributes<HTMLInputElement>> = memo(
+  ({ value, onChange }) => {
+    return (
+      <Input
+        placeholder="Search..."
+        style={{ marginBottom: 16, width: 200 }}
+        value={value}
+        onChange={onChange}
+      />
+    );
+  }
+);

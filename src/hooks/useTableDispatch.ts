@@ -1,5 +1,5 @@
 import React from "react";
-import { TableDispatchContext } from "../context/TableContext";
+import { TableDispatchContext } from "../context/TableContext/TableContext";
 
 export function useTableDispatch() {
   const context = React.useContext(TableDispatchContext);

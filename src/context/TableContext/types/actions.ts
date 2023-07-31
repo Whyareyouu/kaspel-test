@@ -1,5 +1,5 @@
 import { ActionPoints } from "./action.enum";
-import { User } from "../../components/Table";
+import { User } from "../../../components/Table";
 
 export type TActions =
   | { type: ActionPoints.ADDUSER; payload: User }

@@ -10,9 +10,9 @@ import { Button } from "antd";
 import { User } from "../../components/Table";
 import { useTableState } from "../../hooks/useTableState";
 import { useTableDispatch } from "../../hooks/useTableDispatch";
-import { ActionPoints } from "../../context/types/action.enum";
 import { formatDateToISO } from "./lib/formatDate";
 import { validateUser } from "./lib/validator";
+import { ActionPoints } from "../../context";
 
 export const TablePage = () => {
   const users = useTableState();

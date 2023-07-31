@@ -1,7 +1,7 @@
 import React from "react";
-import { User } from "../components/Table/types/Table";
 import { reducer } from "./reducer";
 import { TActions } from "./types/actions";
+import { User } from "../../components/Table";
 
 export const TableStateContext = React.createContext<User[] | undefined>(
   undefined

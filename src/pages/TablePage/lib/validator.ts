@@ -8,6 +8,11 @@ export function validateUser(user: User) {
     errors.name = 'Поле "name" должно быть непустой строкой';
   }
 
+  // Проверка что поле "name" строка
+  if (!!Number(user?.name)) {
+    errors.name = 'Поле "name" должно быть строкой';
+  }
+
   // Проверка поля 'date'
   if (!user?.date || typeof user?.date !== "string") {
     errors.date = 'Поле "date" должно быть непустой строкой';
@@ -20,7 +25,7 @@ export function validateUser(user: User) {
     typeof +user?.value !== "number" ||
     user?.value.toString().length === 0
   ) {
-    errors.value = 'Поле "value" должно быть числовым значением';
+    errors.value = 'Поле "value" должно быть непустой строкой';
   }
 
   return errors;

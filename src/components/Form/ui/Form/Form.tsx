@@ -47,6 +47,8 @@ export const Form: FC<FormProps> = ({
         value={initialValues?.date as string}
         onChange={handleDateChange}
         type={"date"}
+        min="1900-01-01"
+        max="9999-12-31"
         placeholder="yyyy/mm/dd"
         error={errors?.date}
       />

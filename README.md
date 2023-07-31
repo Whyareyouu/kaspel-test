@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# Тестовое задание: Компонент таблицы с действиями
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Данный проект представляет собой компонент таблицы с несколькими столбцами, включающими имя, дату, числовое значение и колонку с действиями. Для разработки использовалась библиотека AntD для реализации сортировки и других дополнительных функциональностей.
 
-## Available Scripts
+## Основные функции:
 
-In the project directory, you can run:
+1.  Таблица с данными, содержащими столбцы: Имя, Дата, Значение и Действия.
+2.  Кнопка "Добавить", которая вызывает модальное окно с полями, соответствующими столбцам таблицы.
+3.  Возможность добавлять новые строки с данными после заполнения и валидации полей в модальном окне.
+4.  В столбце "Действия" присутствуют кнопки "Удалить" и "Редактировать".
+5.  При нажатии на кнопку "Редактировать" открывается модальное окно с данными из выбранной строки. После изменения и подтверждения данных в модальном окне, изменения отображаются в таблице.
+6.  При нажатии на кнопку "Удалить" выбранная строка удаляется из таблицы.
+7.  Присутствует инпут для поиска по всем ячейкам таблицы, расположенный над таблицей.
 
-### `npm start`
+## Дополнительные функции:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-   Сортировка таблицы по всем колонкам, которая правильно работает в зависимости от типа значения в колонке (реализовано с использованием AntD).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Технологии:
 
-### `npm test`
+-   React.js для разработки компонентов и логики приложения.
+-   AntD для стилизации компонентов и реализации дополнительных функций.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Запуск проекта:
+1. Клонируйте репозиторий:
 
-### `npm run build`
+git clone https://github.com/Whyareyouu/kaspel-test.git
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Установите зависимости:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`npm install`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3.  Запустите приложение:
 
-### `npm run eject`
+`npm start`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Демонстрация проекта:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Вы можете просмотреть работающий компонент таблицы с действиями по ссылке: [Vercel](https://kaspel-test.vercel.app/)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Дополнительные комментарии:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Проект выполнен в соответствии с требованиями и дополнительными пожеланиями. Была использована библиотека AntD для реализации сортировки и стилизации.
 
-## Learn More
+Если у вас возникли вопросы или замечания по проекту, не стесняйтесь связаться со мной.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Спасибо за возможность выполнить это тестовое задание!
